@@ -14,6 +14,8 @@ import vadebike.equipamentos.model.Bicicleta;
 @NoArgsConstructor
 public class BicicletaDTO extends BaseDTO<Bicicleta>{
     
+	private Integer id;
+	
     private String marca;
     
     private String modelo;
@@ -27,8 +29,12 @@ public class BicicletaDTO extends BaseDTO<Bicicleta>{
 	
 	@Override
 	public Bicicleta convertToEntity(Integer id) {
+		if(id != null) {
+			this.id = id;
+		}
+		
 		return Bicicleta.builder()
-			.id(id)
+			.id(this.id)
 			.ano(ano)
 			.marca(marca)
 			.modelo(modelo)
