@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,15 +19,20 @@ import vadebike.equipamentos.dto.BicicletaDTO;
 @NoArgsConstructor
 public class Bicicleta extends BaseEntity{
 	
+	@Column(nullable = false)
     private String marca;
     
+	@Column(nullable = false)
     private String modelo;
 
+	@Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy")
     private Date ano;
     
+    @Column(unique = true, nullable = false)
     private Integer numero;
     
+    @Column(nullable = false)
     private String status;
 
 	@Override

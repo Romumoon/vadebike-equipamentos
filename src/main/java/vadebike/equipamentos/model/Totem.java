@@ -1,5 +1,6 @@
 package vadebike.equipamentos.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +15,10 @@ import vadebike.equipamentos.dto.TotemDTO;
 @NoArgsConstructor
 public class Totem extends BaseEntity{
 	
+	@Column(nullable = false)
 	private String localizacao;
 	
+	@Column(nullable = false)
 	private String descricao;
 
 	@Override

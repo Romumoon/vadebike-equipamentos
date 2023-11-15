@@ -14,5 +14,5 @@ public class TrancaService extends BaseServiceImpl<TrancaDTO, Tranca, ITrancaRep
 	public BicicletaDTO findBicicletaByTrancaId(Integer id) {
 		return baseRepository.findById(id).get().getBicicleta().convertToDto();
 	}
-
+	
 }
