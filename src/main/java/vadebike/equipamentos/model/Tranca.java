@@ -16,24 +16,26 @@ import vadebike.equipamentos.dto.TrancaDTO;
 @NoArgsConstructor
 public class Tranca extends BaseEntity{
 	
-	private String marca;
+	private String localizacao;
 	
 	private String modelo;
 	
-	private Date ano;
+	private Date anoDeFabricacao;
 	
 	private Integer numero;
 	
 	private String status;
+	
+	private Bicicleta bicicleta;
 	
 	@Override
 	public TrancaDTO convertToDto() {
 
 		return TrancaDTO.builder()
 				.id(id)
-				.marca(marca)
+				.localizacao(localizacao)
 				.modelo(modelo)
-				.ano(ano)
+				.anoDeFabricacao(anoDeFabricacao)
 				.numero(numero)
 				.status(status)
 				.build();

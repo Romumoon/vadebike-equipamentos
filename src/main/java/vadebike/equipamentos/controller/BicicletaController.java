@@ -40,6 +40,14 @@ public class BicicletaController {
     	return new ResponseEntity(bicicletaService.update(updatedEntity), HttpStatusCode.valueOf(200));
     }
     
+    @PostMapping(path = "/{id}/status/{acao}")
+    public ResponseEntity<Bicicleta> update(@PathVariable Integer id, @PathVariable String acao, @RequestBody BicicletaDTO dto) {
+    	Bicicleta updatedEntity = dto.convertToEntity(id);
+    	updatedEntity.setStatus(acao);
+    	
+    	return new ResponseEntity(bicicletaService.update(updatedEntity), HttpStatusCode.valueOf(200));
+    }
+    
     @PostMapping
     public ResponseEntity<Bicicleta> create(@RequestBody BicicletaDTO dto) {
     	Bicicleta newEntity = dto.convertToEntity(null);

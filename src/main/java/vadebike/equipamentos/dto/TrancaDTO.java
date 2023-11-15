@@ -16,11 +16,11 @@ public class TrancaDTO extends BaseDTO<Tranca>{
 	
 	private Integer id;
 	
-	private String marca;
+	private String localizacao;
 	
 	private String modelo;
 	
-	private Date ano;
+	private Date anoDeFabricacao;
 	
 	private Integer numero;
 	
@@ -34,8 +34,8 @@ public class TrancaDTO extends BaseDTO<Tranca>{
 		
 		return Tranca.builder()
 			.id(this.id)
-			.ano(ano)
-			.marca(marca)
+			.anoDeFabricacao(anoDeFabricacao)
+			.localizacao(localizacao)
 			.modelo(modelo)
 			.status(status)
 			.numero(numero)

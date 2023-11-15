@@ -28,6 +28,11 @@ public class TrancaController {
         return new ResponseEntity(trancaService.findAll(), HttpStatusCode.valueOf(200));
     }
     
+    @GetMapping(path = "/{id}/bicicleta")
+    public ResponseEntity<TrancaDTO> findBicicletaByTrancaId(@PathVariable Integer id) {
+        return new ResponseEntity(trancaService.findBicicletaByTrancaId(id), HttpStatusCode.valueOf(200));
+    }
+    
     @PostMapping
     public ResponseEntity<TrancaDTO> create(@RequestBody TrancaDTO dto) {
     	Tranca newEntity = dto.convertToEntity(null);
