@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import vadebike.equipamentos.model.Bicicleta;
@@ -12,6 +13,7 @@ import vadebike.equipamentos.model.Bicicleta;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class BicicletaDTO extends BaseDTO<Bicicleta>{
     
 	private Integer id;

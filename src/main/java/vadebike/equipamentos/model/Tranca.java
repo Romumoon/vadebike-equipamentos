@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import vadebike.equipamentos.dto.TrancaDTO;
 
 @Entity(name = "tranca")
 @SuperBuilder
@@ -26,9 +27,16 @@ public class Tranca extends BaseEntity{
 	private String status;
 	
 	@Override
-	public <D> D convertToDto() {
-		// TODO Auto-generated method stub
-		return null;
+	public TrancaDTO convertToDto() {
+
+		return TrancaDTO.builder()
+				.id(id)
+				.marca(marca)
+				.modelo(modelo)
+				.ano(ano)
+				.numero(numero)
+				.status(status)
+				.build();
 	}
 
 }

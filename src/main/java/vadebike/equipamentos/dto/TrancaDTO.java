@@ -2,8 +2,16 @@ package vadebike.equipamentos.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import vadebike.equipamentos.model.Tranca;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class TrancaDTO extends BaseDTO<Tranca>{
 	
 	private Integer id;
