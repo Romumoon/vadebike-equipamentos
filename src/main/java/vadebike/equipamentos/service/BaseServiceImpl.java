@@ -29,7 +29,7 @@ public class BaseServiceImpl<D extends BaseDTO, E extends BaseEntity, R extends 
 	}
 	
 	public List<Object> findAlltoDTO() {
-		return baseRepository.findAll().stream().map(E::convertToDto).collect(Collectors.toList());
+		return baseRepository.findAll().stream().map(E::convertToDto).toList();
 	}
 
 	@Override

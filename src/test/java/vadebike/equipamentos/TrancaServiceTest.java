@@ -28,7 +28,7 @@ import vadebike.equipamentos.repository.ITrancaRepository;
 import vadebike.equipamentos.service.TrancaService;
 
 @ExtendWith(MockitoExtension.class)
-public class TrancaServiceTest {
+class TrancaServiceTest {
 
     @Mock
     private ITrancaRepository trancaRepository;
@@ -42,7 +42,7 @@ public class TrancaServiceTest {
 	}
     
     @Test
-    public void testFindBicicletaByTrancaId() {
+    void testFindBicicletaByTrancaId() {
         // Arrange
         Integer trancaId = 1;
         Tranca tranca = new Tranca();
@@ -58,7 +58,7 @@ public class TrancaServiceTest {
     }
 
     @Test
-    public void testCreateTranca() {
+    void testCreateTranca() {
         // Arrange
         Tranca newTranca = new Tranca();
         when(trancaRepository.save(newTranca)).thenReturn(newTranca);
@@ -71,7 +71,7 @@ public class TrancaServiceTest {
     }
 
     @Test
-    public void testUpdateTranca() {
+    void testUpdateTranca() {
         // Arrange
         Tranca updatedTranca = new Tranca();
         updatedTranca.setId(1);
@@ -97,7 +97,7 @@ public class TrancaServiceTest {
     }
     
     @Test
-    public void testUpdateTrancaThrowsException() {
+    void testUpdateTrancaThrowsException() {
         // Arrange
         Tranca updatedTranca = new Tranca();
         updatedTranca.setId(1);
@@ -116,7 +116,7 @@ public class TrancaServiceTest {
     }
 
     @Test
-    public void testUpdateTrancaException() {
+    void testUpdateTrancaException() {
         // Arrange
         Tranca updatedTranca = new Tranca();
         updatedTranca.setId(1);
@@ -132,7 +132,7 @@ public class TrancaServiceTest {
     }
 
     @Test
-    public void testDeleteTrancaWithNoContent() {
+    void testDeleteTrancaWithNoContent() {
         // Arrange
         Integer trancaId = 1;
         when(trancaRepository.findById(trancaId)).thenReturn(Optional.empty());
@@ -142,7 +142,7 @@ public class TrancaServiceTest {
     }
 
     @Test
-    public void testDeleteTrancaWithBicicleta() {
+    void testDeleteTrancaWithBicicleta() {
         // Arrange
         Integer trancaId = 1;
         Tranca tranca = new Tranca();
@@ -155,7 +155,7 @@ public class TrancaServiceTest {
     }
 
     @Test
-    public void testDeleteTrancaSuccess() {
+    void testDeleteTrancaSuccess() {
         // Arrange
         Integer trancaId = 1;
         when(trancaRepository.findById(trancaId)).thenReturn(Optional.of(new Tranca()));
