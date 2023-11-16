@@ -17,10 +17,11 @@ import vadebike.equipamentos.repository.IBicicletaRepository;
 public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, IBicicletaRepository>
 	implements IBicicletaService{
 	
+	 private Random random = new Random();
+	
 	@Override
 	@Transactional
 	public BicicletaDTO create(Bicicleta newEntity) {
-		Random random = new Random();
 		
 		Integer numero = random.nextInt();
 		
