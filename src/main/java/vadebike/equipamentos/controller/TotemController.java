@@ -29,38 +29,38 @@ public class TotemController {
 	
     @GetMapping
     public ResponseEntity<Object> listAll() {
-        return new ResponseEntity<Object>(totemService.findAlltoDTO(), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(totemService.findAlltoDTO(), HttpStatusCode.valueOf(200));
     }
     
     @PostMapping
     public ResponseEntity<TotemDTO> create(@RequestBody TotemDTO dto) {
     	Totem newEntity = dto.convertToEntity(null);
     	
-        return new ResponseEntity<TotemDTO>(totemService.create(newEntity), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(totemService.create(newEntity), HttpStatusCode.valueOf(200));
     }
     
     @PutMapping(path = "/{id}")
     public ResponseEntity<TotemDTO> update(@PathVariable Integer id, @RequestBody TotemDTO dto) {
     	Totem updatedEntity = dto.convertToEntity(id);
     	
-    	return new ResponseEntity<TotemDTO>(totemService.update(updatedEntity), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<>(totemService.update(updatedEntity), HttpStatusCode.valueOf(200));
     }
     
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Object> delete(@PathVariable Integer id){
     	totemService.delete(id);
-    	return new ResponseEntity<Object>(HttpStatusCode.valueOf(204));
+    	return new ResponseEntity<>(HttpStatusCode.valueOf(204));
     }
     
     @GetMapping(path = "/{id}/bicicletas")
     public ResponseEntity<List<BicicletaDTO>> listBicicletas(@PathVariable Integer id) {
     	
-    	return new ResponseEntity<List<BicicletaDTO>>(totemService.listBicicletas(id), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<>(totemService.listBicicletas(id), HttpStatusCode.valueOf(200));
     }
     
     @GetMapping(path = "/{id}/trancas")
     public ResponseEntity<List<TrancaDTO>> listTrancas(@PathVariable Integer id) {
     	
-    	return new ResponseEntity<List<TrancaDTO>>(totemService.listTrancas(id), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<>(totemService.listTrancas(id), HttpStatusCode.valueOf(200));
     }
 }
