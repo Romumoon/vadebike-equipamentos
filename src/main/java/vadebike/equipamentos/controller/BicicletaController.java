@@ -24,39 +24,39 @@ public class BicicletaController {
     private BicicletaService bicicletaService;
     
     @GetMapping
-    public ResponseEntity<Bicicleta> listAll() {
-        return new ResponseEntity(bicicletaService.findAlltoDTO(), HttpStatusCode.valueOf(200));
+    public ResponseEntity<Object> listAll() {
+        return new ResponseEntity<Object>(bicicletaService.findAlltoDTO(), HttpStatusCode.valueOf(200));
     }
     
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Bicicleta> findById(@PathVariable Integer id) {
-        return new ResponseEntity(bicicletaService.findById(id), HttpStatusCode.valueOf(200));
+    public ResponseEntity<BicicletaDTO> findById(@PathVariable Integer id) {
+        return new ResponseEntity<BicicletaDTO>(bicicletaService.findById(id), HttpStatusCode.valueOf(200));
     }
     
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Bicicleta> update(@PathVariable Integer id, @RequestBody BicicletaDTO dto) {
+    public ResponseEntity<BicicletaDTO> update(@PathVariable Integer id, @RequestBody BicicletaDTO dto) {
     	Bicicleta updatedEntity = dto.convertToEntity(id);
     	
-    	return new ResponseEntity(bicicletaService.update(updatedEntity), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<BicicletaDTO>(bicicletaService.update(updatedEntity), HttpStatusCode.valueOf(200));
     }
     
     @PostMapping(path = "/{id}/status/{acao}")
-    public ResponseEntity<Bicicleta> updateStatus(@PathVariable Integer id, @PathVariable String acao) {
+    public ResponseEntity<BicicletaDTO> updateStatus(@PathVariable Integer id, @PathVariable String acao) {
     	
-    	return new ResponseEntity(bicicletaService.updateStatus(id, acao), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<BicicletaDTO>(bicicletaService.updateStatus(id, acao), HttpStatusCode.valueOf(200));
     }
     
     @PostMapping
-    public ResponseEntity<Bicicleta> create(@RequestBody BicicletaDTO dto) {
+    public ResponseEntity<BicicletaDTO> create(@RequestBody BicicletaDTO dto) {
     	Bicicleta newEntity = dto.convertToEntity(null);
     	
-        return new ResponseEntity(bicicletaService.create(newEntity), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<BicicletaDTO>(bicicletaService.create(newEntity), HttpStatusCode.valueOf(200));
     }
     
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Object> delete(@PathVariable Integer id){
     	bicicletaService.delete(id);
-    	return new ResponseEntity(HttpStatusCode.valueOf(204));
+    	return new ResponseEntity<Object>(HttpStatusCode.valueOf(204));
     }
     
 }
