@@ -1,10 +1,12 @@
 package vadebike.equipamentos;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -41,33 +43,49 @@ public class TotemServiceTest {
 		ReflectionTestUtils.setField(totemService, "baseRepository", totemRepository);
 	}
 
-	@Test
-	public void testListTrancas() {
-		// Arrange
-		Integer totemId = 1;
-		Totem totem = new Totem();
-		when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
+    @Test
+    public void testListTrancas() {
+        // Arrange
+        Integer totemId = 1;
+        Tranca tranca1 = new Tranca();
+        tranca1.setId(1);
+        Tranca tranca2 = new Tranca();
+        tranca2.setId(2);
+        Totem totem = new Totem();
+        totem.setTrancasList(Arrays.asList(tranca1, tranca2));
+        when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
 
-		// Act
-		List<TrancaDTO> trancasList = totemService.listTrancas(totemId);
+        // Act
+        List<TrancaDTO> trancaDTOList = totemService.listTrancas(totemId);
 
-		// Assert
-		// Implement your assertions here
-	}
+        // Assert
+        assertEquals(2, trancaDTOList.size());
+        assertEquals(1, trancaDTOList.get(0).getId());
+        assertEquals(2, trancaDTOList.get(1).getId());
+        // Add more assertions if needed
+    }
 
-	@Test
-	public void testListBicicletas() {
-		// Arrange
-		Integer totemId = 1;
-		Totem totem = new Totem();
-		when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
+    @Test
+    public void testListBicicletas() {
+        // Arrange
+        Integer totemId = 1;
+        Bicicleta bicicleta1 = new Bicicleta();
+        bicicleta1.setId(1);
+        Bicicleta bicicleta2 = new Bicicleta();
+        bicicleta2.setId(2);
+        Totem totem = new Totem();
+        totem.setBicicletasList(Arrays.asList(bicicleta1, bicicleta2));
+        when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
 
-		// Act
-		List<BicicletaDTO> bicicletasList = totemService.listBicicletas(totemId);
+        // Act
+        List<BicicletaDTO> bicicletaDTOList = totemService.listBicicletas(totemId);
 
-		// Assert
-		// Implement your assertions here
-	}
+        // Assert
+        assertEquals(2, bicicletaDTOList.size());
+        assertEquals(1, bicicletaDTOList.get(0).getId());
+        assertEquals(2, bicicletaDTOList.get(1).getId());
+        // Add more assertions if needed
+    }
 
 	@Test
 	public void testDeleteTotemWithNoContent() {
@@ -101,6 +119,7 @@ public class TotemServiceTest {
 		// Arrange
 		Integer totemId = 1;
 		Totem totem = new Totem();
+        
 		when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
 
 		// Act

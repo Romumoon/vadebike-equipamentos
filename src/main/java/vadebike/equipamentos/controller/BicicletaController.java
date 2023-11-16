@@ -41,7 +41,7 @@ public class BicicletaController {
     }
     
     @PostMapping(path = "/{id}/status/{acao}")
-    public ResponseEntity<Bicicleta> update(@PathVariable Integer id, @PathVariable String acao) {
+    public ResponseEntity<Bicicleta> updateStatus(@PathVariable Integer id, @PathVariable String acao) {
     	
     	return new ResponseEntity(bicicletaService.updateStatus(id, acao), HttpStatusCode.valueOf(200));
     }

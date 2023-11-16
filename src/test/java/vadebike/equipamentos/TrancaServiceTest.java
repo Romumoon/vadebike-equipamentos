@@ -1,5 +1,7 @@
 package vadebike.equipamentos;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -73,9 +75,12 @@ public class TrancaServiceTest {
         // Arrange
         Tranca updatedTranca = new Tranca();
         updatedTranca.setId(1);
+        updatedTranca.setStatus(StatusTranca.LIVRE.getStatus());
+        updatedTranca.setNumero(123);
+
         Tranca originalTranca = new Tranca();
         originalTranca.setId(1);
-        originalTranca.setStatus(StatusTranca.NOVA.getStatus());
+        originalTranca.setStatus(StatusTranca.LIVRE.getStatus());
         originalTranca.setNumero(123);
 
         when(trancaRepository.findById(updatedTranca.getId())).thenReturn(Optional.of(originalTranca));
@@ -85,7 +90,29 @@ public class TrancaServiceTest {
         TrancaDTO trancaDTO = trancaService.update(updatedTranca);
 
         // Assert
-        // Implement your assertions here
+        assertNotNull(trancaDTO);
+        assertEquals(updatedTranca.getId(), trancaDTO.getId());
+        assertEquals(updatedTranca.getStatus(), trancaDTO.getStatus());
+        assertEquals(updatedTranca.getNumero(), trancaDTO.getNumero());
+    }
+    
+    @Test
+    public void testUpdateTrancaThrowsException() {
+        // Arrange
+        Tranca updatedTranca = new Tranca();
+        updatedTranca.setId(1);
+        updatedTranca.setStatus(StatusTranca.LIVRE.getStatus());
+        updatedTranca.setNumero(123);
+
+        Tranca originalTranca = new Tranca();
+        originalTranca.setId(1);
+        originalTranca.setStatus(StatusTranca.LIVRE.getStatus());
+        originalTranca.setNumero(456); // Different number
+
+        when(trancaRepository.findById(updatedTranca.getId())).thenReturn(Optional.of(originalTranca));
+
+        // Act & Assert
+        assertThrows(BusinessException.class, () -> trancaService.update(updatedTranca));
     }
 
     @Test

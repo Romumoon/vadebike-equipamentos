@@ -1,5 +1,7 @@
 package vadebike.equipamentos;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -58,10 +60,12 @@ public class BicicletaServiceTest {
         // Arrange
         Bicicleta updatedBicicleta = new Bicicleta();
         updatedBicicleta.setId(1);
+        updatedBicicleta.setStatus(StatusBicicleta.DISPONIVEL.getStatus());
+        updatedBicicleta.setMarca("test");
         Bicicleta originalBicicleta = new Bicicleta();
         originalBicicleta.setId(1);
-        originalBicicleta.setStatus(StatusBicicleta.NOVA.getStatus());
-        originalBicicleta.setNumero(123);
+        originalBicicleta.setStatus(StatusBicicleta.DISPONIVEL.getStatus());
+        originalBicicleta.setModelo("originalModelo"); // Adiciona um modelo diferente
 
         when(bicicletaRepository.findById(updatedBicicleta.getId())).thenReturn(Optional.of(originalBicicleta));
         when(bicicletaRepository.save(updatedBicicleta)).thenReturn(updatedBicicleta);
@@ -70,7 +74,10 @@ public class BicicletaServiceTest {
         BicicletaDTO bicicletaDTO = bicicletaService.update(updatedBicicleta);
 
         // Assert
-        // Implement your assertions here
+        assertEquals(originalBicicleta.getId(), bicicletaDTO.getId());
+        assertNotEquals(originalBicicleta.getModelo(), bicicletaDTO.getModelo());
+        assertEquals(originalBicicleta.getStatus(), bicicletaDTO.getStatus());
+        // Adicione mais verificações conforme necessário
     }
 
     @Test
@@ -115,7 +122,9 @@ public class BicicletaServiceTest {
     public void testDeleteBicicletaSuccess() {
         // Arrange
         Integer bicicletaId = 1;
-        when(bicicletaRepository.findById(bicicletaId)).thenReturn(Optional.of(new Bicicleta()));
+        Bicicleta bicicleta = new Bicicleta();
+        bicicleta.setStatus(StatusBicicleta.APOSENTADA.getStatus());
+        when(bicicletaRepository.findById(bicicletaId)).thenReturn(Optional.of(bicicleta));
 
         // Act
         bicicletaService.delete(bicicletaId);
@@ -128,13 +137,21 @@ public class BicicletaServiceTest {
     public void testUpdateStatusBicicleta() {
         // Arrange
         Integer bicicletaId = 1;
+        String acao = "disponivel";
+
         Bicicleta bicicleta = new Bicicleta();
+        bicicleta.setId(bicicletaId);
+        bicicleta.setStatus(StatusBicicleta.EM_USO.getStatus());
+
         when(bicicletaRepository.findById(bicicletaId)).thenReturn(Optional.of(bicicleta));
+        when(bicicletaRepository.save(bicicleta)).thenReturn(bicicleta);
 
         // Act
-        BicicletaDTO bicicletaDTO = bicicletaService.updateStatus(bicicletaId, "aposentada");
+        BicicletaDTO bicicletaDTO = bicicletaService.updateStatus(bicicletaId, acao);
 
         // Assert
-        // Implement your assertions here
+        assertEquals(bicicletaId, bicicletaDTO.getId());
+        assertEquals(StatusBicicleta.DISPONIVEL.getStatus(), bicicletaDTO.getStatus());
+        // Add more assertions if needed
     }
 }

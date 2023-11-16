@@ -33,8 +33,7 @@ implements ITotemService{
 		Optional<Totem> opEntity = baseRepository.findById(id);
 		if (!opEntity.isPresent()) {
 			throw new NoContentException(String.valueOf(id));
-		} else if(!opEntity.get().getBicicletasList().isEmpty() || opEntity.get().getBicicletasList() != null
-				|| !opEntity.get().getTrancasList().isEmpty() || opEntity.get().getTrancasList() != null) {
+		} else if(opEntity.get().getBicicletasList() != null || opEntity.get().getTrancasList() != null) {
 			throw new BusinessException("Totem com trancas ou bicicletas");
 		}
 		baseRepository.delete(opEntity.get());
