@@ -6,6 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +27,8 @@ public class Bicicleta extends BaseEntity{
     
 	@Column(nullable = false)
     private String modelo;
-
+	
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy")
     private Date ano;
@@ -34,6 +38,9 @@ public class Bicicleta extends BaseEntity{
     
     @Column(nullable = false)
     private String status;
+    
+    @OneToOne(mappedBy = "bicicleta")
+    private Tranca tranca;
 
 	@Override
 	public BicicletaDTO convertToDto() {

@@ -25,7 +25,7 @@ public class BicicletaController {
     
     @GetMapping
     public ResponseEntity<Bicicleta> listAll() {
-        return new ResponseEntity(bicicletaService.findAll(), HttpStatusCode.valueOf(200));
+        return new ResponseEntity(bicicletaService.findAlltoDTO(), HttpStatusCode.valueOf(200));
     }
     
     @GetMapping(path = "/{id}")
@@ -41,11 +41,9 @@ public class BicicletaController {
     }
     
     @PostMapping(path = "/{id}/status/{acao}")
-    public ResponseEntity<Bicicleta> update(@PathVariable Integer id, @PathVariable String acao, @RequestBody BicicletaDTO dto) {
-    	Bicicleta updatedEntity = dto.convertToEntity(id);
-    	updatedEntity.setStatus(acao);
+    public ResponseEntity<Bicicleta> update(@PathVariable Integer id, @PathVariable String acao) {
     	
-    	return new ResponseEntity(bicicletaService.update(updatedEntity), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity(bicicletaService.updateStatus(id, acao), HttpStatusCode.valueOf(200));
     }
     
     @PostMapping

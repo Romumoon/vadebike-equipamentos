@@ -1,7 +1,8 @@
 package vadebike.equipamentos.service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,10 @@ public class BaseServiceImpl<D extends BaseDTO, E extends BaseEntity, R extends 
 	@Override
 	public List<E> findAll() {
 		return baseRepository.findAll();
+	}
+	
+	public List<Object> findAlltoDTO() {
+		return baseRepository.findAll().stream().map(E::convertToDto).collect(Collectors.toList());
 	}
 
 	@Override

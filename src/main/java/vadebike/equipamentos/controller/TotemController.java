@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import vadebike.equipamentos.dto.BicicletaDTO;
 import vadebike.equipamentos.dto.TotemDTO;
+import vadebike.equipamentos.dto.TrancaDTO;
 import vadebike.equipamentos.model.Totem;
 import vadebike.equipamentos.service.TotemService;
 
@@ -25,7 +27,7 @@ public class TotemController {
 	
     @GetMapping
     public ResponseEntity<TotemDTO> listAll() {
-        return new ResponseEntity(totemService.findAll(), HttpStatusCode.valueOf(200));
+        return new ResponseEntity(totemService.findAlltoDTO(), HttpStatusCode.valueOf(200));
     }
     
     @PostMapping
@@ -46,5 +48,17 @@ public class TotemController {
     public ResponseEntity<Object> delete(@PathVariable Integer id){
     	totemService.delete(id);
     	return new ResponseEntity(HttpStatusCode.valueOf(204));
+    }
+    
+    @GetMapping(path = "/{id}/bicicletas")
+    public ResponseEntity<BicicletaDTO> listBicicletas(@PathVariable Integer id) {
+    	
+    	return new ResponseEntity(totemService.listBicicletas(id), HttpStatusCode.valueOf(200));
+    }
+    
+    @GetMapping(path = "/{id}/trancas")
+    public ResponseEntity<TrancaDTO> listTrancas(@PathVariable Integer id) {
+    	
+    	return new ResponseEntity(totemService.listTrancas(id), HttpStatusCode.valueOf(200));
     }
 }

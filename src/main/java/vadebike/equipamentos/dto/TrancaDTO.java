@@ -26,6 +26,8 @@ public class TrancaDTO extends BaseDTO<Tranca>{
 	
 	private String status;
 	
+	private Integer bicicletaId;
+	
 	@Override
 	public Tranca convertToEntity(Integer id) {
 		if(id != null) {
