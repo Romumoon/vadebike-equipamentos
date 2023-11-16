@@ -56,7 +56,8 @@ jobs:
 
       - name: SonarCloud Scan
         run: |
-          ./mvnw sonar:sonar -Dsonar.projectKey=Romumoon_vadebike-equipamentos -Dsonar.organization=romumu -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          ./mvnw sonar:sonar -Dsonar.projectKey=Romumoon_vadebike-equipamentos -Dsonar.organization=romumu -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.java.binaries=**/target/classes
+
         working-directory: ${{ github.workspace }}
 
   deploy:
