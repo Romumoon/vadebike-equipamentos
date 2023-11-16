@@ -55,6 +55,8 @@ class TrancaServiceTest {
 
         // Assert
         // Implement your assertions here
+        assertNotNull(bicicletaDTO); // Verifica se o DTO não é nulo
+
     }
 
     @Test
@@ -68,6 +70,7 @@ class TrancaServiceTest {
 
         // Assert
         // Implement your assertions here
+        assertNotNull(trancaDTO); // Verifica se o DTO não é nulo
     }
 
     @Test

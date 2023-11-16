@@ -2,6 +2,7 @@ package vadebike.equipamentos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -51,8 +52,7 @@ class BicicletaServiceTest {
         // Act
         BicicletaDTO bicicletaDTO = bicicletaService.create(newBicicleta);
 
-        // Assert
-        // Implement your assertions here
+        assertNotNull(bicicletaDTO); // Verifica se o DTO não é nulo
     }
 
     @Test
