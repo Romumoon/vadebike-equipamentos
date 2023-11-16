@@ -21,6 +21,10 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+        working-directory: ${{ github.workspace }}
+
       - name: Build project
         run: |
           ./mvnw clean install
