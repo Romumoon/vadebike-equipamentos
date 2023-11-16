@@ -28,7 +28,7 @@ import vadebike.equipamentos.repository.IBicicletaRepository;
 import vadebike.equipamentos.service.BicicletaService;
 
 @ExtendWith(MockitoExtension.class)
-public class BicicletaServiceTest {
+class BicicletaServiceTest {
 
     @Mock
     private IBicicletaRepository bicicletaRepository;
@@ -42,7 +42,7 @@ public class BicicletaServiceTest {
 	}
     
     @Test
-    public void testCreateBicicleta() {
+    void testCreateBicicleta() {
         // Arrange
         Bicicleta newBicicleta = new Bicicleta();
         when(bicicletaRepository.findByNumero(anyInt())).thenReturn(null);
@@ -56,7 +56,7 @@ public class BicicletaServiceTest {
     }
 
     @Test
-    public void testUpdateBicicleta() {
+    void testUpdateBicicleta() {
         // Arrange
         Bicicleta updatedBicicleta = new Bicicleta();
         updatedBicicleta.setId(1);
@@ -81,7 +81,7 @@ public class BicicletaServiceTest {
     }
 
     @Test
-    public void testUpdateBicicletaException() {
+    void testUpdateBicicletaException() {
         // Arrange
         Bicicleta updatedBicicleta = new Bicicleta();
         updatedBicicleta.setId(1);
@@ -97,7 +97,7 @@ public class BicicletaServiceTest {
     }
 
     @Test
-    public void testDeleteBicicletaWithNoContent() {
+    void testDeleteBicicletaWithNoContent() {
         // Arrange
         Integer bicicletaId = 1;
         when(bicicletaRepository.findById(bicicletaId)).thenReturn(Optional.empty());
@@ -107,7 +107,7 @@ public class BicicletaServiceTest {
     }
 
     @Test
-    public void testDeleteBicicletaWithTrancaOrNotAposentada() {
+    void testDeleteBicicletaWithTrancaOrNotAposentada() {
         // Arrange
         Integer bicicletaId = 1;
         Bicicleta bicicleta = new Bicicleta();
@@ -119,7 +119,7 @@ public class BicicletaServiceTest {
     }
 
     @Test
-    public void testDeleteBicicletaSuccess() {
+    void testDeleteBicicletaSuccess() {
         // Arrange
         Integer bicicletaId = 1;
         Bicicleta bicicleta = new Bicicleta();
@@ -134,7 +134,7 @@ public class BicicletaServiceTest {
     }
 
     @Test
-    public void testUpdateStatusBicicleta() {
+    void testUpdateStatusBicicleta() {
         // Arrange
         Integer bicicletaId = 1;
         String acao = "disponivel";

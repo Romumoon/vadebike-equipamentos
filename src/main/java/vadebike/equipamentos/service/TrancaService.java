@@ -10,7 +10,6 @@ import vadebike.equipamentos.dto.TrancaDTO;
 import vadebike.equipamentos.enums.StatusTranca;
 import vadebike.equipamentos.exception.BusinessException;
 import vadebike.equipamentos.exception.NoContentException;
-import vadebike.equipamentos.model.Bicicleta;
 import vadebike.equipamentos.model.Tranca;
 import vadebike.equipamentos.repository.ITrancaRepository;
 

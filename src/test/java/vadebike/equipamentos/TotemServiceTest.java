@@ -30,7 +30,7 @@ import vadebike.equipamentos.repository.ITotemRepository;
 import vadebike.equipamentos.service.TotemService;
 
 @ExtendWith(MockitoExtension.class)
-public class TotemServiceTest {
+class TotemServiceTest {
 
 	@Mock
 	private ITotemRepository totemRepository;
@@ -44,7 +44,7 @@ public class TotemServiceTest {
 	}
 
     @Test
-    public void testListTrancas() {
+    void testListTrancas() {
         // Arrange
         Integer totemId = 1;
         Tranca tranca1 = new Tranca();
@@ -66,7 +66,7 @@ public class TotemServiceTest {
     }
 
     @Test
-    public void testListBicicletas() {
+    void testListBicicletas() {
         // Arrange
         Integer totemId = 1;
         Bicicleta bicicleta1 = new Bicicleta();
@@ -88,7 +88,7 @@ public class TotemServiceTest {
     }
 
 	@Test
-	public void testDeleteTotemWithNoContent() {
+	void testDeleteTotemWithNoContent() {
 		// Arrange
 		Integer totemId = 1;
 		when(totemRepository.findById(totemId)).thenReturn(Optional.empty());
@@ -98,7 +98,7 @@ public class TotemServiceTest {
 	}
 
 	@Test
-	public void testDeleteTotemWithBicicletasOrTrancas() {
+	void testDeleteTotemWithBicicletasOrTrancas() {
 		// Arrange
 		Integer totemId = 1;
 		Totem totem = new Totem();
@@ -115,7 +115,7 @@ public class TotemServiceTest {
 	}
 
 	@Test
-	public void testDeleteTotemSuccess() {
+	void testDeleteTotemSuccess() {
 		// Arrange
 		Integer totemId = 1;
 		Totem totem = new Totem();
@@ -129,7 +129,7 @@ public class TotemServiceTest {
 		verify(totemRepository).delete(totem);
 	}
 
-	private Bicicleta createRandomBicicleta() {
+	Bicicleta createRandomBicicleta() {
 		Random random = new Random();
 		Integer numeroAleatorio = random.nextInt(11); // Gera um número aleatório de 0 a 10
 
@@ -139,7 +139,7 @@ public class TotemServiceTest {
 		return bicicleta;
 	}
 	
-	private Tranca createRandomTranca() {
+	Tranca createRandomTranca() {
 		Random random = new Random();
 		Integer numeroAleatorio = random.nextInt(11); // Gera um número aleatório de 0 a 10
 
