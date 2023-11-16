@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "14c41cc3-4f16-4e9c-b684-93e8aca4a7eb",
+		"name": "Equipamentos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31108489"
+	},
+	"item": [
+		{
+			"name": "Insert Totem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"localizacao\": \"barra\",\r\n  \"descricao\": \"definitivamente eh um totem\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/totem",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"totem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Totem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"localizacao\": \"barra\",\r\n  \"descricao\": \"definitivamente eh um totem\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/totem/id",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"totem",
+						"id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Bicicleta Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"marca\": \"Marca1\",\r\n    \"modelo\": \"Modelo1\",\r\n    \"ano\": \"2022\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/bicicleta",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bicicleta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar status bicicleta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"marca\": \"Marca1\",\r\n    \"modelo\": \"Modelo1\",\r\n    \"ano\": \"2022\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/bicicleta/1/status/EM_USO",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bicicleta",
+						"1",
+						"status",
+						"EM_USO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Bicicleta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/bicicleta/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bicicleta",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Tranca",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/tranca/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"tranca",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Totem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/totem/1",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"totem",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Bicicleta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/bicicleta",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bicicleta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bicicleta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/bicicleta/1",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bicicleta",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Bicicleta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"marca\": \"Marca3\",\r\n    \"modelo\": \"bala\",\r\n    \"ano\": \"2022\",\r\n    \"numero\": \"2\",\r\n    \"status\": \"NOVA\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/bicicleta/1",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"bicicleta",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Tranca",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/tranca",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"tranca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Totem",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/Totem",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"Totem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTranca",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/tranca/1",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"tranca",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert tranca",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numero\": 1,\r\n  \"localizacao\": \"Praia\",\r\n  \"anoDeFabricacao\": \"2000\",\r\n  \"modelo\": \"modelo\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/tranca",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"tranca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Tranca",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"numero\": 1,\r\n  \"localizacao\": \"Praia\",\r\n  \"anoDeFabricacao\": \"2000\",\r\n  \"modelo\": \"modelo\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/tranca",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"tranca"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
