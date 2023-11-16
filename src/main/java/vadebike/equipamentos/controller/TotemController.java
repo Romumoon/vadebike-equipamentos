@@ -24,8 +24,12 @@ import vadebike.equipamentos.service.TotemService;
 @RequestMapping("/totem")
 public class TotemController {
 	
-	@Autowired
-	TotemService totemService;
+	private final TotemService totemService;
+
+    @Autowired
+    public TotemController(TotemService totemService) {
+        this.totemService = totemService;
+    }
 	
     @GetMapping
     public ResponseEntity<Object> listAll() {

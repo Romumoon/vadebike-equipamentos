@@ -21,8 +21,12 @@ import vadebike.equipamentos.service.TrancaService;
 @RequestMapping("/tranca")
 public class TrancaController {
 	
-	@Autowired
-	TrancaService trancaService;
+	private final TrancaService trancaService;
+	
+    @Autowired
+    public TrancaController(TrancaService trancaService) {
+        this.trancaService = trancaService;
+    }
 	
     @GetMapping
     public ResponseEntity<Object> listAll() {

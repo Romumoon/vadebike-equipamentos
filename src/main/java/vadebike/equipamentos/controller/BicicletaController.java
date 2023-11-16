@@ -20,8 +20,12 @@ import vadebike.equipamentos.service.BicicletaService;
 @RequestMapping("/bicicleta")
 public class BicicletaController {
 	
+    private final BicicletaService bicicletaService;
+
     @Autowired
-    private BicicletaService bicicletaService;
+    public BicicletaController(BicicletaService bicicletaService) {
+        this.bicicletaService = bicicletaService;
+    }
     
     @GetMapping
     public ResponseEntity<Object> listAll() {
