@@ -76,15 +76,31 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		return baseRepository.save(bicicleta).convertToDto();
 	}
 	
-	public void integrarNaRede(Integer bicicletaId, Integer trancaId) {
-		Bicicleta bicicleta = baseRepository.findById(bicicletaId).get();
-		Tranca tranca = trancaRepository.findById(trancaId).get();
+	@Transactional
+	public void integrarNaRede(Integer idBicicleta, Integer idTranca, Integer idFuncionario) {
+		Bicicleta bicicleta = baseRepository.findById(idBicicleta).get();
+		Tranca tranca = trancaRepository.findById(idTranca).get();
 		
 		if(tranca.getBicicleta() != null) {
 			throw new BusinessException("Tranca Ocupada");
 		}
 		
 		bicicleta.setStatus(StatusBicicleta.DISPONIVEL.getStatus());
+		bicicleta.setTranca(tranca);
+		baseRepository.save(bicicleta);
+	}
+
+	public void retirarDaRede(Integer idBicicleta, Integer idTranca, Integer idFuncionario,
+			String statusAcaoReparador) {
+
+		Bicicleta bicicleta = baseRepository.findById(idBicicleta).get();
+		Tranca tranca = trancaRepository.findById(idTranca).get();
+		
+		if(tranca.getBicicleta() == null) {
+			throw new BusinessException("Tranca vazia");
+		}
+		
+		bicicleta.setStatus(StatusBicicleta.valueOf(statusAcaoReparador).getStatus());
 		bicicleta.setTranca(tranca);
 		baseRepository.save(bicicleta);
 	}

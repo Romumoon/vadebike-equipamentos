@@ -30,7 +30,7 @@ public class TrancaController {
 	
     @GetMapping
     public ResponseEntity<Object> listAll() {
-        return new ResponseEntity<>(trancaService.findAll(), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(trancaService.findAlltoDTO(), HttpStatusCode.valueOf(200));
     }
     
     @GetMapping(path = "/{id}/bicicleta")

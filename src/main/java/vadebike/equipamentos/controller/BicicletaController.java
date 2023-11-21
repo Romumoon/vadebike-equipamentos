@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vadebike.equipamentos.dto.BicicletaDTO;
+import vadebike.equipamentos.dto.IntegraBicicletaRedeDTO;
+import vadebike.equipamentos.dto.RetiraBicicletaRedeDTO;
 import vadebike.equipamentos.model.Bicicleta;
 import vadebike.equipamentos.service.BicicletaService;
 
@@ -63,4 +65,15 @@ public class BicicletaController {
     	return new ResponseEntity<>(HttpStatusCode.valueOf(204));
     }
     
+    @PostMapping(path = "/integrarNaRede")
+    public ResponseEntity<Object> integrarNaRede(@RequestBody IntegraBicicletaRedeDTO dto) {
+    	bicicletaService.integrarNaRede(dto.getIdBicicleta(), dto.getIdTranca(), dto.getIdFuncionario());
+        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+    }
+    
+    @PostMapping(path = "/retirarDaRede")
+    public ResponseEntity<Object> retirarDaRede(@RequestBody RetiraBicicletaRedeDTO dto) {
+    	bicicletaService.retirarDaRede(dto.getIdBicicleta(), dto.getIdTranca(), dto.getIdFuncionario(), dto.getStatusAcaoReparador());
+        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+    }
 }
