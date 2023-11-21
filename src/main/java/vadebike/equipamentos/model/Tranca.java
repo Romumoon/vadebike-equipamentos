@@ -51,6 +51,7 @@ public class Tranca extends BaseEntity{
 				.anoDeFabricacao(anoDeFabricacao)
 				.numero(numero)
 				.status(status)
+				.bicicletaId(bicicleta != null ? bicicleta.getId() : null)
 				.build();
 	}
 

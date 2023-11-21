@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vadebike.equipamentos.dto.BicicletaDTO;
 import vadebike.equipamentos.enums.StatusBicicleta;
+import vadebike.equipamentos.enums.StatusTranca;
 import vadebike.equipamentos.exception.BusinessException;
 import vadebike.equipamentos.exception.NoContentException;
 import vadebike.equipamentos.model.Bicicleta;
@@ -86,22 +87,28 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		}
 		
 		bicicleta.setStatus(StatusBicicleta.DISPONIVEL.getStatus());
+		tranca.setBicicleta(bicicleta);
+		tranca.setStatus(StatusTranca.OCUPADA.getStatus());
 		bicicleta.setTranca(tranca);
 		baseRepository.save(bicicleta);
 	}
-
+	
+	@Transactional
 	public void retirarDaRede(Integer idBicicleta, Integer idTranca, Integer idFuncionario,
 			String statusAcaoReparador) {
 
 		Bicicleta bicicleta = baseRepository.findById(idBicicleta).get();
 		Tranca tranca = trancaRepository.findById(idTranca).get();
 		
-		if(tranca.getBicicleta() == null) {
-			throw new BusinessException("Tranca vazia");
+		if(tranca.getBicicleta() == null || bicicleta.getStatus().equals("DISPONÍVEL") ||
+				tranca.getStatus().equals("LIVRE")) {
+			throw new BusinessException("Tranca vazia ou bicicleta disponivek");
 		}
 		
 		bicicleta.setStatus(StatusBicicleta.valueOf(statusAcaoReparador).getStatus());
-		bicicleta.setTranca(tranca);
+		bicicleta.setTranca(null);
+		tranca.setBicicleta(null);
+		tranca.setStatus(StatusTranca.LIVRE.getStatus());
 		baseRepository.save(bicicleta);
 	}
 }

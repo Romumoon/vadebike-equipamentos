@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -39,7 +40,7 @@ public class Bicicleta extends BaseEntity{
     @Column(nullable = false)
     private String status;
     
-    @OneToOne(mappedBy = "bicicleta")
+    @OneToOne(mappedBy = "bicicleta", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Tranca tranca;
 
 	@Override
