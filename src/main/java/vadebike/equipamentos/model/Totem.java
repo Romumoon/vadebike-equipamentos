@@ -27,7 +27,6 @@ public class Totem extends BaseEntity{
 	private String descricao;
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "totem")
-    @JoinColumn(name = "totem_id")
     private List<Tranca> trancas;
 	
 	@Override
