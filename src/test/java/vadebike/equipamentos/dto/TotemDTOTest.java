@@ -1,9 +1,12 @@
 package vadebike.equipamentos.dto;
 
-import org.junit.jupiter.api.Test;
-import vadebike.equipamentos.model.Totem;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import vadebike.equipamentos.model.Totem;
 
 class TotemDTOTest {
 
@@ -54,13 +57,34 @@ class TotemDTOTest {
     }
 
     @Test
-    void testConvertToEntity() {
-        TotemDTO totemDTO = new TotemDTO(1, "Local A", "Descrição A");
+    void testConvertToEntityWithNullId() {
+        TotemDTO totemDTO = TotemDTO.builder()
+                .id(null)
+                .localizacao("Local A")
+                .descricao("Descrição A")
+                .build();
 
         Totem totem = totemDTO.convertToEntity(null);
 
         assertNotNull(totem);
-        assertEquals(1, totem.getId());
+        assertNull(totem.getId());  // O ID deve ser nulo quando não fornecido
+        assertEquals("Local A", totem.getLocalizacao());
+        assertEquals("Descrição A", totem.getDescricao());
+    }
+
+    @Test
+    void testConvertToEntityWithNotNullId() {
+        Integer id = 1;
+        TotemDTO totemDTO = TotemDTO.builder()
+                .id(id)
+                .localizacao("Local A")
+                .descricao("Descrição A")
+                .build();
+
+        Totem totem = totemDTO.convertToEntity(null);
+
+        assertNotNull(totem);
+        assertEquals(id, totem.getId());  // O ID deve ser o mesmo passado no builder
         assertEquals("Local A", totem.getLocalizacao());
         assertEquals("Descrição A", totem.getDescricao());
     }

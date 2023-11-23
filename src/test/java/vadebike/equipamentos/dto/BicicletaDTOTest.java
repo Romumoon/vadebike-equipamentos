@@ -78,15 +78,45 @@ class BicicletaDTOTest {
     }
 
     @Test
-    void testConvertToEntity() {
-        BicicletaDTO bicicletaDTO = new BicicletaDTO(1, "Marca", "Modelo", new Date(), 123, "Ativo");
+    void testConvertToEntityWithNullId() {
+        BicicletaDTO bicicletaDTO = BicicletaDTO.builder()
+                .id(null)
+                .marca("Marca A")
+                .modelo("Modelo A")
+                .ano(new Date())
+                .numero(123)
+                .status("Ativo")
+                .build();
 
         Bicicleta bicicleta = bicicletaDTO.convertToEntity(null);
 
         assertNotNull(bicicleta);
-        assertEquals(1, bicicleta.getId());
-        assertEquals("Marca", bicicleta.getMarca());
-        assertEquals("Modelo", bicicleta.getModelo());
+        assertNull(bicicleta.getId());  // O ID deve ser nulo quando não fornecido
+        assertEquals("Marca A", bicicleta.getMarca());
+        assertEquals("Modelo A", bicicleta.getModelo());
+        assertNotNull(bicicleta.getAno());
+        assertEquals(123, bicicleta.getNumero());
+        assertEquals("Ativo", bicicleta.getStatus());
+    }
+
+    @Test
+    void testConvertToEntityWithNotNullId() {
+        Integer id = 1;
+        BicicletaDTO bicicletaDTO = BicicletaDTO.builder()
+                .id(id)
+                .marca("Marca A")
+                .modelo("Modelo A")
+                .ano(new Date())
+                .numero(123)
+                .status("Ativo")
+                .build();
+
+        Bicicleta bicicleta = bicicletaDTO.convertToEntity(null);
+
+        assertNotNull(bicicleta);
+        assertEquals(id, bicicleta.getId());  // O ID deve ser o mesmo passado no builder
+        assertEquals("Marca A", bicicleta.getMarca());
+        assertEquals("Modelo A", bicicleta.getModelo());
         assertNotNull(bicicleta.getAno());
         assertEquals(123, bicicleta.getNumero());
         assertEquals("Ativo", bicicleta.getStatus());
