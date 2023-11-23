@@ -162,7 +162,7 @@ class BicicletaServiceTest {
     }
     
     @Test
-    public void testIntegrarNaRede() {
+    void testIntegrarNaRede() {
         // Arrange
         Integer idBicicleta = 1;
         Integer idTranca = 2;
@@ -190,7 +190,7 @@ class BicicletaServiceTest {
     }
 
     @Test
-    public void testRetirarDaRede() {
+    void testRetirarDaRede() {
         // Arrange
         Integer idBicicleta = 1;
         Integer idTranca = 2;
@@ -221,7 +221,7 @@ class BicicletaServiceTest {
     }
 
     @Test
-    public void testRetirarDaRedeException() {
+    void testRetirarDaRedeException() {
         // Arrange
         Integer idBicicleta = 1;
         Integer idTranca = 2;
