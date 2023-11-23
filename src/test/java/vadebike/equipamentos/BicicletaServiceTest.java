@@ -3,6 +3,7 @@ package vadebike.equipamentos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -21,11 +22,13 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import vadebike.equipamentos.dto.BicicletaDTO;
 import vadebike.equipamentos.enums.StatusBicicleta;
+import vadebike.equipamentos.enums.StatusTranca;
 import vadebike.equipamentos.exception.BusinessException;
 import vadebike.equipamentos.exception.NoContentException;
 import vadebike.equipamentos.model.Bicicleta;
 import vadebike.equipamentos.model.Tranca;
 import vadebike.equipamentos.repository.IBicicletaRepository;
+import vadebike.equipamentos.repository.ITrancaRepository;
 import vadebike.equipamentos.service.BicicletaService;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +36,9 @@ class BicicletaServiceTest {
 
     @Mock
     private IBicicletaRepository bicicletaRepository;
+    
+    @Mock
+    private ITrancaRepository trancaRepository;
 
     @InjectMocks
     private BicicletaService bicicletaService;
@@ -153,5 +159,88 @@ class BicicletaServiceTest {
         assertEquals(bicicletaId, bicicletaDTO.getId());
         assertEquals(StatusBicicleta.DISPONIVEL.getStatus(), bicicletaDTO.getStatus());
         // Add more assertions if needed
+    }
+    
+    @Test
+    public void testIntegrarNaRede() {
+        // Arrange
+        Integer idBicicleta = 1;
+        Integer idTranca = 2;
+        Integer idFuncionario = 3;
+
+        Bicicleta bicicleta = new Bicicleta();
+        bicicleta.setId(idBicicleta);
+        bicicleta.setStatus(StatusBicicleta.EM_REPARO.getStatus());
+
+        Tranca tranca = new Tranca();
+        tranca.setId(idTranca);
+        tranca.setStatus(StatusTranca.LIVRE.getStatus());
+
+        when(bicicletaRepository.findById(idBicicleta)).thenReturn(Optional.of(bicicleta));
+        when(trancaRepository.findById(idTranca)).thenReturn(Optional.of(tranca));
+
+        // Act
+        bicicletaService.integrarNaRede(idBicicleta, idTranca, idFuncionario);
+
+        // Assert
+        assertEquals(StatusBicicleta.DISPONIVEL.getStatus(), bicicleta.getStatus());
+        assertNotNull(bicicleta.getTranca());
+        assertEquals(idTranca, bicicleta.getTranca().getId());
+        assertEquals(StatusTranca.OCUPADA.getStatus(), bicicleta.getTranca().getStatus());
+    }
+
+    @Test
+    public void testRetirarDaRede() {
+        // Arrange
+        Integer idBicicleta = 1;
+        Integer idTranca = 2;
+        Integer idFuncionario = 3;
+        String statusAcaoReparador = "EM_REPARO";
+
+        Bicicleta bicicleta = new Bicicleta();
+        bicicleta.setId(idBicicleta);
+        bicicleta.setStatus(StatusBicicleta.EM_REPARO.getStatus());
+        bicicleta.setTranca(new Tranca());
+
+        Tranca tranca = new Tranca();
+        tranca.setId(idTranca);
+        tranca.setStatus(StatusTranca.OCUPADA.getStatus());
+        tranca.setBicicleta(bicicleta);
+
+        when(bicicletaRepository.findById(idBicicleta)).thenReturn(Optional.of(bicicleta));
+        when(trancaRepository.findById(idTranca)).thenReturn(Optional.of(tranca));
+
+        // Act
+        bicicletaService.retirarDaRede(idBicicleta, idTranca, idFuncionario, statusAcaoReparador);
+
+        // Assert
+        assertEquals(StatusBicicleta.EM_REPARO.getStatus(), bicicleta.getStatus());
+        assertNull(bicicleta.getTranca());
+        assertNull(tranca.getBicicleta());
+        assertEquals(StatusTranca.LIVRE.getStatus(), tranca.getStatus());
+    }
+
+    @Test
+    public void testRetirarDaRedeException() {
+        // Arrange
+        Integer idBicicleta = 1;
+        Integer idTranca = 2;
+        Integer idFuncionario = 3;
+        String statusAcaoReparador = "EM_REPARO";
+
+        Bicicleta bicicleta = new Bicicleta();
+        bicicleta.setId(idBicicleta);
+        bicicleta.setStatus(StatusBicicleta.DISPONIVEL.getStatus());
+
+        Tranca tranca = new Tranca();
+        tranca.setId(idTranca);
+        tranca.setStatus(StatusTranca.LIVRE.getStatus());
+
+        when(bicicletaRepository.findById(idBicicleta)).thenReturn(Optional.of(bicicleta));
+        when(trancaRepository.findById(idTranca)).thenReturn(Optional.of(tranca));
+
+        // Act & Assert
+        assertThrows(BusinessException.class,
+                () -> bicicletaService.retirarDaRede(idBicicleta, idTranca, idFuncionario, statusAcaoReparador));
     }
 }

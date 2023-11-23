@@ -24,7 +24,7 @@ import vadebike.equipamentos.model.Tranca;
 import vadebike.equipamentos.service.TrancaService;
 
 @ExtendWith(MockitoExtension.class)
-public class TrancaControllerTest {
+class TrancaControllerTest {
 
 	@Mock
 	TrancaService trancaService;
