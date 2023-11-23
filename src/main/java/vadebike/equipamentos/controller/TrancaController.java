@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vadebike.equipamentos.dto.BicicletaDTO;
+import vadebike.equipamentos.dto.IntegraTrancaRedeDTO;
+import vadebike.equipamentos.dto.RetiraTrancaRedeDTO;
 import vadebike.equipamentos.dto.TrancaDTO;
+import vadebike.equipamentos.dto.TrancarDTO;
 import vadebike.equipamentos.model.Tranca;
 import vadebike.equipamentos.service.TrancaService;
 
@@ -61,5 +64,27 @@ public class TrancaController {
     public ResponseEntity<Object> delete(@PathVariable Integer id){
     	trancaService.delete(id);
     	return new ResponseEntity<>(HttpStatusCode.valueOf(204));
+    }
+    
+    @PostMapping(path = "/integrarNaRede")
+    public ResponseEntity<Object> integrarNaRede(@RequestBody IntegraTrancaRedeDTO dto) {
+    	trancaService.integrarNaRede(dto.getIdTotem(), dto.getIdTranca(), dto.getIdFuncionario());
+        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+    }
+    
+    @PostMapping(path = "/retirarDaRede")
+    public ResponseEntity<Object> retirarDaRede(@RequestBody RetiraTrancaRedeDTO dto) {
+    	trancaService.retirarDaRede(dto.getIdTotem(), dto.getIdTranca(), dto.getIdFuncionario(), dto.getStatusAcaoReparador());
+        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+    }
+    
+    @PostMapping(path = "/{id}/trancar")
+    public ResponseEntity<TrancaDTO> trancar (@PathVariable Integer id, @RequestBody TrancarDTO dto){
+    	return new ResponseEntity<>(trancaService.trancar(id, dto.getIdBicicleta()).convertToDto(), HttpStatusCode.valueOf(200));
+    }
+    
+    @PostMapping(path = "/{id}/destrancar")
+    public ResponseEntity<TrancaDTO> destrancar (@PathVariable Integer id, @RequestBody TrancarDTO dto){
+    	return new ResponseEntity<>(trancaService.destrancar(id, dto.getIdBicicleta()).convertToDto(), HttpStatusCode.valueOf(200));
     }
 }

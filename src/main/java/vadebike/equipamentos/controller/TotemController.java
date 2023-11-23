@@ -1,6 +1,7 @@
 package vadebike.equipamentos.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import vadebike.equipamentos.dto.BicicletaDTO;
 import vadebike.equipamentos.dto.TotemDTO;
 import vadebike.equipamentos.dto.TrancaDTO;
+import vadebike.equipamentos.model.Bicicleta;
 import vadebike.equipamentos.model.Totem;
+import vadebike.equipamentos.model.Tranca;
 import vadebike.equipamentos.service.TotemService;
 
 @RestController
@@ -59,12 +62,14 @@ public class TotemController {
     @GetMapping(path = "/{id}/bicicletas")
     public ResponseEntity<List<BicicletaDTO>> listBicicletas(@PathVariable Integer id) {
     	
-    	return new ResponseEntity<>(totemService.listBicicletas(id), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<>(totemService.listBicicletas(id).stream().map(Bicicleta::convertToDto).collect(Collectors.toList())
+    			, HttpStatusCode.valueOf(200));
     }
     
     @GetMapping(path = "/{id}/trancas")
     public ResponseEntity<List<TrancaDTO>> listTrancas(@PathVariable Integer id) {
     	
-    	return new ResponseEntity<>(totemService.listTrancas(id), HttpStatusCode.valueOf(200));
+    	return new ResponseEntity<>(totemService.listTrancas(id).stream().map(Tranca::convertToDto).collect(Collectors.toList())
+    			, HttpStatusCode.valueOf(200));
     }
 }

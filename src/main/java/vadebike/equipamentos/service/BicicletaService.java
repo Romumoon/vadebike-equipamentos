@@ -102,7 +102,7 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		
 		if(tranca.getBicicleta() == null || bicicleta.getStatus().equals("DISPONÍVEL") ||
 				tranca.getStatus().equals("LIVRE")) {
-			throw new BusinessException("Tranca vazia ou bicicleta disponivek");
+			throw new BusinessException("Tranca vazia ou bicicleta disponivel");
 		}
 		
 		bicicleta.setStatus(StatusBicicleta.valueOf(statusAcaoReparador).getStatus());
@@ -110,5 +110,6 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		tranca.setBicicleta(null);
 		tranca.setStatus(StatusTranca.LIVRE.getStatus());
 		baseRepository.save(bicicleta);
+		trancaRepository.save(tranca);
 	}
 }

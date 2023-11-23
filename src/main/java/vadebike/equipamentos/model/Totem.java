@@ -2,8 +2,10 @@ package vadebike.equipamentos.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +26,9 @@ public class Totem extends BaseEntity{
 	@Column(nullable = false)
 	private String descricao;
 	
-	@OneToMany
-	private List<Tranca> trancasList;
-	
-	@OneToMany
-	private List<Bicicleta> bicicletasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "totem")
+    @JoinColumn(name = "totem_id")
+    private List<Tranca> trancas;
 	
 	@Override
 	public TotemDTO convertToDto() {
