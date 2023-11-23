@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import vadebike.equipamentos.model.Bicicleta;
 import vadebike.equipamentos.model.Tranca;
 
 @Data
@@ -39,6 +40,7 @@ public class TrancaDTO extends BaseDTO<Tranca>{
 			.anoDeFabricacao(anoDeFabricacao)
 			.localizacao(localizacao)
 			.modelo(modelo)
+			.bicicleta(Bicicleta.builder().id(bicicletaId).build())
 			.status(status)
 			.numero(numero)
 			.build();
