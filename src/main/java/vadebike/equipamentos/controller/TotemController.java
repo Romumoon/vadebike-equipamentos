@@ -62,14 +62,14 @@ public class TotemController {
     @GetMapping(path = "/{id}/bicicletas")
     public ResponseEntity<List<BicicletaDTO>> listBicicletas(@PathVariable Integer id) {
     	
-    	return new ResponseEntity<>(totemService.listBicicletas(id).stream().map(Bicicleta::convertToDto).collect(Collectors.toList())
+    	return new ResponseEntity<>(totemService.listBicicletas(id).stream().map(Bicicleta::convertToDto).toList()
     			, HttpStatusCode.valueOf(200));
     }
     
     @GetMapping(path = "/{id}/trancas")
     public ResponseEntity<List<TrancaDTO>> listTrancas(@PathVariable Integer id) {
     	
-    	return new ResponseEntity<>(totemService.listTrancas(id).stream().map(Tranca::convertToDto).collect(Collectors.toList())
+    	return new ResponseEntity<>(totemService.listTrancas(id).stream().map(Tranca::convertToDto).toList()
     			, HttpStatusCode.valueOf(200));
     }
 }

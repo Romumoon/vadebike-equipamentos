@@ -1,7 +1,5 @@
 package vadebike.equipamentos.dto;
 
-import java.util.Date;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
