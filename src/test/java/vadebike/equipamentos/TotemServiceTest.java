@@ -19,8 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import vadebike.equipamentos.dto.BicicletaDTO;
-import vadebike.equipamentos.dto.TrancaDTO;
 import vadebike.equipamentos.exception.BusinessException;
 import vadebike.equipamentos.exception.NoContentException;
 import vadebike.equipamentos.model.Bicicleta;
@@ -52,11 +50,11 @@ class TotemServiceTest {
         Tranca tranca2 = new Tranca();
         tranca2.setId(2);
         Totem totem = new Totem();
-        totem.setTrancasList(Arrays.asList(tranca1, tranca2));
+        totem.setTrancas(Arrays.asList(tranca1, tranca2));
         when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
 
         // Act
-        List<TrancaDTO> trancaDTOList = totemService.listTrancas(totemId);
+        List<Tranca> trancaDTOList = totemService.listTrancas(totemId);
 
         // Assert
         assertEquals(2, trancaDTOList.size());
@@ -73,12 +71,18 @@ class TotemServiceTest {
         bicicleta1.setId(1);
         Bicicleta bicicleta2 = new Bicicleta();
         bicicleta2.setId(2);
+        Tranca tranca1 = new Tranca();
+        tranca1.setId(1);
+        tranca1.setBicicleta(bicicleta1);
+        Tranca tranca2 = new Tranca();
+        tranca2.setId(2);
+        tranca2.setBicicleta(bicicleta2);
         Totem totem = new Totem();
-        totem.setBicicletasList(Arrays.asList(bicicleta1, bicicleta2));
+        totem.setTrancas(Arrays.asList(tranca1, tranca2));
         when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
 
         // Act
-        List<BicicletaDTO> bicicletaDTOList = totemService.listBicicletas(totemId);
+        List<Bicicleta> bicicletaDTOList = totemService.listBicicletas(totemId);
 
         // Assert
         assertEquals(2, bicicletaDTOList.size());
@@ -102,12 +106,9 @@ class TotemServiceTest {
 		// Arrange
 		Integer totemId = 1;
 		Totem totem = new Totem();
-		List<Bicicleta> bicicletasList = new ArrayList<>();
-		bicicletasList.add(createRandomBicicleta()); // Add some dummy data
 		List<Tranca> trancasList = new ArrayList<>();
 		trancasList.add(createRandomTranca()); // Add some dummy data
-		totem.setBicicletasList(bicicletasList);
-		totem.setTrancasList(trancasList);
+		totem.setTrancas(trancasList);
 		when(totemRepository.findById(totemId)).thenReturn(Optional.of(totem));
 
 		// Act & Assert
