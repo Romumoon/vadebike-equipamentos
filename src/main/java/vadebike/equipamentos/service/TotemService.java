@@ -1,6 +1,7 @@
 package vadebike.equipamentos.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,8 +26,8 @@ implements ITotemService{
 
 	public List<Bicicleta> listBicicletas(Integer id) {
 	        return baseRepository.findById(id).get().getTrancas().stream()
-	                .map(Tranca::getBicicleta) // Obtém a bicicleta associada a cada tranca
-	                .filter(bicicleta -> bicicleta != null) // Filtra trancas sem bicicletas associadas
+	                .map(Tranca::getBicicleta)
+	                .filter(Objects::nonNull)
 	                .collect(Collectors.toList());
 	}
 	

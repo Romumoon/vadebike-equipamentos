@@ -73,10 +73,6 @@ public class TrancaService extends BaseServiceImpl<TrancaDTO, Tranca, ITrancaRep
 		Tranca tranca = baseRepository.findById(idTranca).get();
 		Totem totem = totemRepository.findById(idTotem).get();
 		
-		if(tranca.getStatus().equals(StatusTranca.EM_REPARO.getStatus())) {
-			
-		}
-		
 		if(totem.getTrancas() == null) {
 			totem.setTrancas(new ArrayList<>());
 		}
