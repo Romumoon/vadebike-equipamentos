@@ -94,7 +94,7 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		Bicicleta bicicleta = baseRepository.findById(idBicicleta).get();
 		Tranca tranca = trancaRepository.findById(idTranca).get();
 		
-		sendEmail(idFuncionario, urlGetFuncionario, urlEnviarEmail, bicicleta, tranca);
+		sendEmail(idFuncionario, urlGetFuncionario, urlEnviarEmail, bicicleta);
 		
 		if (tranca.getBicicleta() != null) {
 			throw new BusinessException("Tranca Ocupada");
@@ -114,7 +114,7 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		Bicicleta bicicleta = baseRepository.findById(idBicicleta).get();
 		Tranca tranca = trancaRepository.findById(idTranca).get();
 		
-		sendEmail(idFuncionario, urlGetFuncionario, urlEnviarEmail, bicicleta, tranca);
+		sendEmail(idFuncionario, urlGetFuncionario, urlEnviarEmail, bicicleta);
 		
 		if (tranca.getBicicleta() == null || bicicleta.getStatus().equals("DISPONÍVEL")
 				|| tranca.getStatus().equals("LIVRE")) {
@@ -129,13 +129,10 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
 		trancaRepository.save(tranca);
 	}
 	
-    public void sendEmail(Integer idFuncionario, String urlGetFuncionario, String urlEnviarEmail, Bicicleta bicicleta, Tranca tranca) {
-        String corpoEmail = new Date().toString()
-                + "\nBicicleta:"
-                + bicicleta.getNumero()
-                + "\nTranca:"
-                + tranca.getNumero();
-
+	
+	
+    public void sendEmail(Integer idFuncionario, String urlGetFuncionario, String urlEnviarEmail, Bicicleta bicicleta) {
+    	
         String requestUrl = urlGetFuncionario + "/" + idFuncionario.toString();
 
         HttpResponse<JsonNode> responseFuncionario = Unirest.get(requestUrl).asJson();
@@ -144,7 +141,14 @@ public class BicicletaService extends BaseServiceImpl<BicicletaDTO, Bicicleta, I
             JsonNode jsonNode = responseFuncionario.getBody();
 
             String emailValue = jsonNode.getObject().getString("email");
-
+            String matricula = jsonNode.getObject().getString("documento");
+            
+            String corpoEmail = new Date().toString()
+                    + "\nBicicleta:"
+                    + bicicleta.getNumero()
+                    + "\nMatricula:"
+                    + matricula;
+            
             if (emailValue != null) {
                 EnviarEmailDTO emailDTO = new EnviarEmailDTO();
                 emailDTO.setDestinatario(emailValue);

@@ -1,13 +1,18 @@
 package vadebike.equipamentos.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
 import vadebike.equipamentos.dto.BicicletaDTO;
+import vadebike.equipamentos.dto.EnviarEmailDTO;
 import vadebike.equipamentos.dto.TrancaDTO;
 import vadebike.equipamentos.enums.StatusBicicleta;
 import vadebike.equipamentos.enums.StatusTranca;
@@ -28,6 +33,10 @@ public class TrancaService extends BaseServiceImpl<TrancaDTO, Tranca, ITrancaRep
 	
 	@Autowired
 	IBicicletaRepository bicicletaRepository;
+	
+	private final String urlGetFuncionario = "https://microservice-aluguel-hbkxpua2za-uc.a.run.app/funcionario";
+	
+	private final String urlEnviarEmail = "https://microservice-externo-hbkxpua2za-uc.a.run.app/enviarEmail";
 
 	public BicicletaDTO findBicicletaByTrancaId(Integer id) {
 		return baseRepository.findById(id).get().getBicicleta().convertToDto();
@@ -82,6 +91,8 @@ public class TrancaService extends BaseServiceImpl<TrancaDTO, Tranca, ITrancaRep
 		tranca.setStatus(StatusTranca.LIVRE.getStatus());
 		tranca.setTotem(totem);
 		
+		sendEmail(idFuncionario, urlGetFuncionario, urlEnviarEmail, tranca);
+		
 		baseRepository.save(tranca);
 	}
 
@@ -95,6 +106,8 @@ public class TrancaService extends BaseServiceImpl<TrancaDTO, Tranca, ITrancaRep
 		
 		tranca.setTotem(null);
 		totem.getTrancas().remove(tranca);
+		
+		sendEmail(idFuncionario, urlGetFuncionario, urlEnviarEmail, tranca);
 		
 		baseRepository.save(tranca);
 		totemRepository.save(totem);
@@ -135,4 +148,45 @@ public class TrancaService extends BaseServiceImpl<TrancaDTO, Tranca, ITrancaRep
 		
 		return baseRepository.save(tranca);
 	}
+	
+    public void sendEmail(Integer idFuncionario, String urlGetFuncionario, String urlEnviarEmail, Tranca tranca) {
+    	
+        String requestUrl = urlGetFuncionario + "/" + idFuncionario.toString();
+
+        HttpResponse<JsonNode> responseFuncionario = Unirest.get(requestUrl).asJson();
+
+        if (responseFuncionario.getStatus() == 200) {
+            JsonNode jsonNode = responseFuncionario.getBody();
+
+            String emailValue = jsonNode.getObject().getString("email");
+            String matricula = jsonNode.getObject().getString("documento");
+            
+            String corpoEmail = new Date().toString()
+                    + "\nBicicleta:"
+                    + tranca.getNumero()
+                    + "\nMatricula:"
+                    + matricula;
+            
+            if (emailValue != null) {
+                EnviarEmailDTO emailDTO = new EnviarEmailDTO();
+                emailDTO.setDestinatario(emailValue);
+                emailDTO.setAssunto("Dados integração");
+                emailDTO.setMensagem(corpoEmail);
+
+                HttpResponse<JsonNode> responseEmail = Unirest.post(urlEnviarEmail)
+                        .header("Content-Type", "application/json")
+                        .body(emailDTO)
+                        .asJson();
+
+                if (responseEmail.getStatus() != 200) {
+                    throw new BusinessException("Erro ao enviar email");
+                }
+
+            } else {
+                throw new BusinessException("Email não encontrado");
+            }
+        } else {
+            throw new BusinessException("Erro na camada da API Externa");
+        }
+    }
 }
