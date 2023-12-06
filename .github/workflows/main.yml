@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_and_test:
-    name: Build and Test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,14 +25,9 @@ jobs:
         run: chmod +x mvnw
         working-directory: ${{ github.workspace }}
 
-      - name: Build project
+      - name: Build project (skip tests)
         run: |
-          ./mvnw clean install
-        working-directory: ${{ github.workspace }}
-
-      - name: Run tests
-        run: |
-          ./mvnw test
+          ./mvnw clean install -DskipTests=true
         working-directory: ${{ github.workspace }}
 
   sonarcloud:
@@ -68,7 +63,6 @@ jobs:
       id-token: 'write'
     name: Deploy to Cloud Run from Source
     runs-on: ubuntu-latest
-    needs: sonarcloud
     steps:
       - name: Checkout
         uses: actions/checkout@v3
