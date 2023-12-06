@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_and_test:
-    name: Build and Test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -28,11 +28,6 @@ jobs:
       - name: Build project
         run: |
           ./mvnw clean install
-        working-directory: ${{ github.workspace }}
-
-      - name: Run tests
-        run: |
-          ./mvnw test
         working-directory: ${{ github.workspace }}
 
   sonarcloud:
