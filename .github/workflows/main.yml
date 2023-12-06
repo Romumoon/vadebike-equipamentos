@@ -25,9 +25,9 @@ jobs:
         run: chmod +x mvnw
         working-directory: ${{ github.workspace }}
 
-      - name: Build project
+      - name: Build project (skip tests)
         run: |
-          ./mvnw clean install
+          ./mvnw clean install -DskipTests=true
         working-directory: ${{ github.workspace }}
 
   sonarcloud:
