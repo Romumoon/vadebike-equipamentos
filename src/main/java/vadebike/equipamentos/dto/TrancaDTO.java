@@ -2,6 +2,8 @@ package vadebike.equipamentos.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class TrancaDTO extends BaseDTO<Tranca>{
 	
 	private String modelo;
 	
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date anoDeFabricacao;
 	
 	private Integer numero;
@@ -42,7 +45,7 @@ public class TrancaDTO extends BaseDTO<Tranca>{
 			.anoDeFabricacao(anoDeFabricacao)
 			.localizacao(localizacao)
 			.modelo(modelo)
-			.bicicleta(Bicicleta.builder().id(bicicletaId).build())
+			.bicicleta(bicicletaId != null ? Bicicleta.builder().id(bicicletaId).build() : null)
 			.status(status)
 			.numero(numero)
 			.build();

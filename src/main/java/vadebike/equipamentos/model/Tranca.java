@@ -41,7 +41,7 @@ public class Tranca extends BaseEntity{
 	@Column(nullable = false)
 	private String status;
 	
-	@OneToOne	
+	@OneToOne
 	@JoinColumn(name = "bicicleta_id", unique = true)
 	private Bicicleta bicicleta;
 	
