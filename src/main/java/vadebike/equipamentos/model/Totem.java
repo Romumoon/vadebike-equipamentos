@@ -24,7 +24,7 @@ public class Totem extends BaseEntity{
 	@Column(nullable = false)
 	private String localizacao;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String descricao;
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "totem")

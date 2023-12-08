@@ -36,7 +36,7 @@ public class Bicicleta extends BaseEntity{
     @DateTimeFormat(pattern = "yyyy")
     private Date ano;
     
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Integer numero;
     
     @Column(nullable = false)

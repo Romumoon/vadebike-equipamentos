@@ -45,13 +45,15 @@ public class TrancaControllerIntegrationTest {
                 new TrancaDTO(2, "Localizacao2", "Modelo2", dateFormatter.parse("2021-01-01"), 456, "NOVA", 2),
                 new TrancaDTO(3, "Localizacao3", "Modelo3", dateFormatter.parse("2020-01-01"), 789, "LIVRE", null)
         );
-        Mockito.when(trancaService.findAlltoDTO()).thenReturn(expectedTrancas);
+//        Mockito.when(trancaService.findAlltoDTO()).thenReturn(expectedTrancas);
 
         ResponseEntity<Object> response = trancaController.listAll();
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 
         List<Object> actualTrancas = (List<Object>) response.getBody();
+        
+        Assertions.assertEquals(actualTrancas.size(), 3);
         
         for (int i = 0; i < expectedTrancas.size(); i++) {
             TrancaDTO expectedTranca = (TrancaDTO)expectedTrancas.get(i);
